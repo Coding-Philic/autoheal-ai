@@ -1,0 +1,38 @@
+# .autoheal/config.toml — AutoHeal AI Default Configuration
+
+[general]
+mode = "auto"
+verbose = false
+log_level = "info"
+
+[sentinel]
+watch_stdout = true
+watch_stderr = true
+watch_exit_code = true
+health_check_interval = 30
+
+[diagnostics]
+timeout = 30
+strategies = ["pattern_match", "llm_reasoning"]
+
+[resolution]
+confidence_threshold = 0.75
+code_patch_threshold = 0.90
+create_backup = true
+max_patch_lines = 50
+
+[memory]
+enabled = true
+max_patterns = 10000
+
+[llm]
+provider = "openai"
+model = ""
+api_key = ""
+temperature = 0.2
+max_tokens = 4096
+timeout = 60
+
+[redaction]
+enabled = true
+patterns = []
