@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "autoheal-ai"
-version = "0.1.0"
+version = "0.1.1"
 description = "AutoHeal AI — Autonomous Self-Healing Software Engine. Install once, self-heal forever."
 authors = ["AutoHeal AI Team"]
 license = "MIT"
@@ -22,8 +22,9 @@ classifiers = [
 autoheal = "autoheal.cli.app:main"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.9"
 typer = {version = "^0.12.0", extras = ["all"]}
+click = "<8.1.8"
 rich = "^13.0.0"
 litellm = "^1.40.0"
 psutil = "^5.9.0"

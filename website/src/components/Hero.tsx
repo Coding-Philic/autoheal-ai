@@ -5,6 +5,7 @@ import gsap from "gsap";
 import SplineBackground from "./SplineBackground";
 import styles from "./Hero.module.css";
 import { Terminal, ShieldCheck } from "lucide-react";
+import GridBackground from "./GridBackground";
 
 export default function Hero() {
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -33,6 +34,7 @@ export default function Hero() {
 
   return (
     <section className={styles.heroSection}>
+      <GridBackground />
       <SplineBackground />
       
       <div className={`container ${styles.content}`}>

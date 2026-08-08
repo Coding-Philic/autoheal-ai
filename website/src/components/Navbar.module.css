@@ -24,6 +24,8 @@
   font-weight: 700;
   font-size: 1.25rem;
   letter-spacing: -0.02em;
+  z-index: 101; /* Stay above mobile menu */
+  position: relative;
 }
 
 .links {
@@ -38,8 +40,104 @@
   color: var(--primary);
 }
 
+.mobileToggle {
+  display: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--primary);
+  cursor: pointer;
+  z-index: 101; /* Stay above mobile menu */
+  position: relative;
+  padding: 8px;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobileToggle:hover {
+  background: rgba(37, 99, 235, 0.2);
+  border-color: var(--accent);
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+}
+
+/* Base state for Mobile Menu (Hidden on desktop) */
+.mobileMenu {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .links {
     display: none;
+  }
+  
+  .mobileToggle {
+    display: block;
+  }
+
+  .mobileBackdrop {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 98; /* Just below the drawer */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+
+  .backdropOpen {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobileMenu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: auto;
+    width: 320px;
+    max-width: 80vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    /* Start off screen to the right */
+    transform: translateX(100%);
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 40px;
+  }
+
+  .mobileMenuContent {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    text-align: left;
+  }
+
+  .mobileMenuContent a {
+    color: var(--primary);
+    font-size: 2.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    /* Start hidden/translated for GSAP reveal */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: color 0.3s ease;
+  }
+  
+  .mobileMenuContent a:hover,
+  .mobileMenuContent a:active {
+    color: var(--accent);
   }
 }
