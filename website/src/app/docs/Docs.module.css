@@ -1,195 +1,956 @@
+/* ═══════════════════════════════════════════════
+   AutoHeal AI — Docs Page Styles
+   Glassmorphism · Liquid background · Animations
+═══════════════════════════════════════════════ */
+
+/* ── Canvas liquid background ───────────────── */
+.liquidCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── Page wrapper ────────────────────────────── */
 .docsPage {
-  padding-top: 100px;
-}
-
-.docsContainer {
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  gap: 60px;
-  min-height: calc(100vh - 200px);
-}
-
-.sidebar {
   position: relative;
+  z-index: 1;
+  padding-top: 90px;
+  min-height: 100vh;
+}
+
+/* ── Two-column layout ───────────────────────── */
+.layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 64px;
+  padding-top: 48px;
+  padding-bottom: 120px;
+  align-items: start;
+}
+
+/* ═══════════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════════ */
+.sidebar {
+  position: sticky;
+  top: 110px;           /* stays just below the fixed navbar */
+  align-self: start;    /* critical: don't stretch to grid row height */
 }
 
 .sidebarSticky {
-  position: sticky;
-  top: 100px;
-  border-right: 1px solid var(--glass-border);
-  padding-right: 20px;
-  height: calc(100vh - 120px);
-  overflow-y: auto;
+  /* nothing needed — sidebar element itself is fixed */
 }
 
-.sidebarTitle {
-  font-size: 1.1rem;
-  margin-bottom: 24px;
-  color: var(--primary);
+.sidebarLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  margin-bottom: 20px;
+  padding-left: 16px;
 }
 
 .sidebarNav {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 2px;
 }
 
-.sidebarNav a {
+.sidebarLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
   color: var(--secondary);
-  font-size: 0.95rem;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
+  border-left: 2px solid transparent;
 }
 
-.sidebarNav a:hover {
+.sidebarLink:hover {
+  color: var(--primary);
+  background: rgba(255,255,255,0.04);
+}
+
+.sidebarLinkActive {
+  color: var(--primary) !important;
+  border-left-color: var(--accent);
+  background: rgba(37,99,235,0.08);
+}
+
+.sidebarChev {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+}
+
+.sidebarLinkActive .sidebarChev {
+  opacity: 1;
   color: var(--accent);
 }
 
+/* ═══════════════════════════════════════════════
+   MAIN CONTENT
+═══════════════════════════════════════════════ */
 .content {
-  padding-bottom: 120px;
   min-width: 0;
+  padding-bottom: 80px;
 }
 
-.header {
-  margin-bottom: 60px;
-  border-bottom: 1px solid var(--glass-border);
-  padding-bottom: 40px;
-}
-
-.section {
+/* ── Doc header ─────────────────────────────── */
+.docHeader {
   margin-bottom: 80px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--glass-border);
 }
 
-.section h2 {
-  margin-bottom: 32px;
-  color: var(--primary);
-}
-
-.card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  padding: 24px;
-  border-radius: 12px;
+.docBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: rgba(37,99,235,0.1);
+  border: 1px solid rgba(37,99,235,0.25);
+  border-radius: 30px;
+  padding: 5px 14px;
   margin-bottom: 24px;
 }
 
-.card h3 {
+.docTitle {
+  margin-bottom: 16px;
+}
+
+.docSubtitle {
+  max-width: 640px;
+}
+
+/* ── Sections ────────────────────────────────── */
+.section {
+  margin-bottom: 96px;
+  scroll-margin-top: 110px;
+}
+
+.section h2 {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
   margin-bottom: 12px;
   color: var(--primary);
 }
 
-.card p {
+.sectionLead {
+  font-size: 1.05rem;
   color: var(--secondary);
-  margin-bottom: 16px;
+  line-height: 1.7;
+  margin-bottom: 36px;
+  max-width: 680px;
 }
 
-.section pre {
-  background: #000;
-  padding: 16px;
-  border-radius: 8px;
-  overflow-x: auto;
+/* ═══════════════════════════════════════════════
+   GLASS CARDS
+═══════════════════════════════════════════════ */
+.glassCard {
+  background: rgba(20, 20, 24, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border: 1px solid var(--glass-border);
-}
-
-.section code {
-  font-family: monospace;
-  color: #fff;
-  font-size: 0.95rem;
-}
-
-.tableWrapper {
-  overflow-x: auto;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
-}
-
-.tableWrapper table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-}
-
-.tableWrapper th, 
-.tableWrapper td {
-  padding: 16px 24px;
-  border-bottom: 1px solid var(--glass-border);
-}
-
-.tableWrapper th {
-  background: rgba(255, 255, 255, 0.05);
-  font-weight: 600;
-}
-
-.tableWrapper tr:last-child td {
-  border-bottom: none;
-}
-
-/* Architecture Diagram */
-.architectureDiagram {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  padding: 40px;
   border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 40px;
+  padding: 28px 32px;
+  margin-bottom: 24px;
 }
 
-.archRow {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.archBox {
-  background: #000;
-  border: 1px solid var(--glass-border);
-  padding: 16px 24px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  min-width: 140px;
+.glassCard h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
   color: var(--primary);
 }
 
-.archBox svg {
+.glassCard p {
+  font-size: 0.95rem;
+  color: var(--secondary);
+  line-height: 1.7;
+}
+
+/* what it is / not */
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.notCard, .isCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.notCard h4, .isCard h4 {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--primary);
+}
+
+.notCard ul, .isCard ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notCard li, .isCard li {
+  font-size: 0.9rem;
+  color: var(--secondary);
+  padding-left: 14px;
+  position: relative;
+}
+
+.notCard li::before {
+  content: "×";
+  position: absolute;
+  left: 0;
+  color: #ef4444;
+}
+
+.isCard li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #22c55e;
+}
+
+/* ═══════════════════════════════════════════════
+   STEP CARDS (Quick Start)
+═══════════════════════════════════════════════ */
+.stepCard {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 28px;
+  background: rgba(16, 16, 20, 0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: border-color 0.25s ease;
+}
+
+.stepCard:hover {
+  border-color: rgba(37, 99, 235, 0.4);
+}
+
+.stepMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.stepNum {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(37, 99, 235, 0.15);
+  border: 1px solid rgba(37,99,235,0.4);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stepIcon {
+  color: var(--secondary);
+}
+
+.stepBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.stepBody h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
   margin-bottom: 8px;
+  color: var(--primary);
+}
+
+.stepBody p {
+  font-size: 0.9rem;
+  color: var(--secondary);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+
+/* ═══════════════════════════════════════════════
+   CODE BLOCKS
+═══════════════════════════════════════════════ */
+.codeWrapper {
+  position: relative;
+  margin-top: 14px;
+  margin-bottom: 4px;
+}
+
+.codeLabel {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--glass-border);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  padding: 4px 14px;
+  display: inline-block;
+}
+
+.codeWrapper pre {
+  background: #0d0d12;
+  border: 1px solid var(--glass-border);
+  border-radius: 0 8px 8px 8px;
+  padding: 18px 20px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+
+.codeWrapper pre code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.875rem;
+  color: #e2e8f0;
+  line-height: 1.7;
+  white-space: pre;
+}
+
+.copyBtn {
+  position: absolute;
+  top: 32px;
+  right: 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--glass-border);
+  color: var(--secondary);
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.copyBtn:hover {
+  background: rgba(37,99,235,0.2);
+  color: var(--primary);
+  border-color: rgba(37,99,235,0.5);
+}
+
+/* info box */
+.infoBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37,99,235,0.2);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.875rem;
+  color: #93c5fd;
+  margin-top: 14px;
+  line-height: 1.55;
+}
+
+.infoBox svg { flex-shrink: 0; margin-top: 2px; }
+
+/* ═══════════════════════════════════════════════
+   ARCHITECTURE DIAGRAM
+═══════════════════════════════════════════════ */
+.archDiagram {
+  background: rgba(10, 10, 16, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 36px;
+  margin-bottom: 40px;
+  overflow-x: auto;
+}
+
+.archCol {
+  margin-bottom: 24px;
+}
+
+.archGroup {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.archGroupLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--secondary);
+}
+
+.archCommand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(37,99,235,0.1);
+  border: 1px solid rgba(37,99,235,0.25);
+  border-radius: 10px;
+  padding: 10px 18px;
+  color: #93c5fd;
+}
+
+.archCommand code {
+  font-family: monospace;
+  font-size: 0.88rem;
+}
+
+.archPipeline {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  row-gap: 16px;
+}
+
+.archNodeWrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.archNode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: rgba(20,20,28,0.8);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  min-width: 88px;
+  text-align: center;
+  transition: border-color 0.25s ease;
+}
+
+.archNode:hover {
+  border-color: rgba(37,99,235,0.5);
+}
+
+.archNodeIcon {
   color: var(--accent);
 }
 
-.archArrow {
-  color: var(--secondary);
-}
-
-.stepsList {
-  padding-left: 20px;
-  color: var(--secondary);
-  line-height: 1.8;
-}
-
-.stepsList strong {
+.archNodeText strong {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
   color: var(--primary);
 }
 
-@media (max-width: 1024px) {
-  .docsContainer {
+.archNodeText small {
+  font-size: 0.68rem;
+  color: var(--secondary);
+}
+
+.archArrow {
+  color: rgba(255,255,255,0.2);
+  flex-shrink: 0;
+}
+
+/* ── How it works steps ─────────────────────── */
+.stepsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.workStep {
+  display: flex;
+  gap: 18px;
+  background: rgba(16,16,22,0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 22px 26px;
+  align-items: flex-start;
+  transition: border-color 0.25s ease;
+}
+
+.workStep:hover {
+  border-color: rgba(37,99,235,0.3);
+}
+
+.workStepIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(37,99,235,0.12);
+  border: 1px solid rgba(37,99,235,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.workStep h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--primary);
+}
+
+.workStep p {
+  font-size: 0.88rem;
+  color: var(--secondary);
+  line-height: 1.65;
+}
+
+/* ═══════════════════════════════════════════════
+   TIMELINE (Behind the Scenes)
+═══════════════════════════════════════════════ */
+.timelineCard {
+  background: rgba(10, 10, 16, 0.65);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.timelineRow {
+  display: grid;
+  grid-template-columns: 80px 14px 1fr;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 14px 0;
+  position: relative;
+}
+
+.timelineRow:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 87px;
+  top: 28px;
+  bottom: -14px;
+  width: 2px;
+  background: var(--glass-border);
+}
+
+.timelineTime {
+  font-family: monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: right;
+  padding-top: 2px;
+}
+
+.timelineDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-top: 4px;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.timelineRow p {
+  font-size: 0.88rem;
+  color: var(--secondary);
+  line-height: 1.6;
+}
+
+/* Loop Engine grid */
+.loopGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.loopItem {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.loopN {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.loopItem strong {
+  font-size: 0.85rem;
+  color: var(--primary);
+}
+
+.loopItem small {
+  font-size: 0.75rem;
+  color: var(--secondary);
+}
+
+/* ═══════════════════════════════════════════════
+   CLI COMMAND CARDS
+═══════════════════════════════════════════════ */
+.cmdCard {
+  background: rgba(15,15,20,0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  transition: border-color 0.25s ease;
+}
+
+.cmdCard:hover {
+  border-color: rgba(37,99,235,0.35);
+}
+
+.cmdHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.cmdIcon {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.cmdName {
+  font-family: monospace;
+  font-size: 0.95rem;
+  color: var(--primary);
+  background: rgba(37,99,235,0.1);
+  border: 1px solid rgba(37,99,235,0.2);
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+
+.cmdDesc {
+  font-size: 0.9rem;
+  color: var(--secondary);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+
+/* ═══════════════════════════════════════════════
+   CONFIGURATION
+═══════════════════════════════════════════════ */
+.configTable {
+  background: rgba(10,10,16,0.6);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-top: 28px;
+}
+
+.configRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2.5fr;
+  gap: 0;
+  border-bottom: 1px solid var(--glass-border);
+  padding: 14px 20px;
+  font-size: 0.875rem;
+  align-items: center;
+}
+
+.configRow:last-child {
+  border-bottom: none;
+}
+
+.configHeader {
+  background: rgba(255,255,255,0.04);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--secondary);
+}
+
+.configRow code {
+  font-family: monospace;
+  font-size: 0.82rem;
+  color: #93c5fd;
+}
+
+.configRow span {
+  color: var(--secondary);
+}
+
+/* ═══════════════════════════════════════════════
+   PROVIDERS
+═══════════════════════════════════════════════ */
+.providerCard {
+  background: rgba(14,14,20,0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 26px 30px;
+  margin-bottom: 20px;
+  transition: border-color 0.25s ease;
+}
+
+.providerCard:hover {
+  border-color: rgba(255,255,255,0.12);
+}
+
+.providerHeader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.providerHeader h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 0;
+}
+
+.providerBadge {
+  font-size: 0.72rem;
+  font-weight: 500;
+  border: 1px solid;
+  border-radius: 30px;
+  padding: 3px 10px;
+}
+
+.providerModel {
+  font-size: 0.875rem;
+  color: var(--secondary);
+  margin-bottom: 4px;
+}
+
+.providerModel code {
+  font-family: monospace;
+  color: var(--primary);
+}
+
+.providerKeyLink {
+  font-size: 0.875rem;
+  color: var(--secondary);
+  margin-bottom: 0;
+}
+
+.providerKeyLink a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ═══════════════════════════════════════════════
+   INTEGRATION EXAMPLES
+═══════════════════════════════════════════════ */
+.exampleCard {
+  background: rgba(14,14,20,0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 26px 30px;
+  margin-bottom: 20px;
+  transition: border-color 0.2s ease;
+}
+
+.exampleCard:hover {
+  border-color: rgba(37,99,235,0.3);
+}
+
+.exampleCard h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 14px;
+}
+
+.exampleSteps {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.exampleSteps li {
+  font-size: 0.9rem;
+  color: var(--secondary);
+  line-height: 1.5;
+}
+
+.exampleSteps li code {
+  font-family: monospace;
+  font-size: 0.85rem;
+  background: rgba(255,255,255,0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--primary);
+}
+
+.noteBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-size: 0.83rem;
+  color: var(--secondary);
+  line-height: 1.55;
+}
+
+.noteBox svg { color: var(--secondary); flex-shrink: 0; margin-top: 1px; }
+
+/* ═══════════════════════════════════════════════
+   FAQ
+═══════════════════════════════════════════════ */
+.faqItem {
+  background: rgba(14,14,20,0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 0;
+  margin-bottom: 14px;
+  overflow: hidden;
+  transition: border-color 0.25s ease;
+}
+
+.faqItem[open] {
+  border-color: rgba(37,99,235,0.35);
+}
+
+.faqQ {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary);
+  padding: 20px 26px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: color 0.2s ease;
+}
+
+.faqQ::-webkit-details-marker { display: none; }
+
+.faqQ::before {
+  content: "+";
+  font-size: 1.2rem;
+  color: var(--accent);
+  font-weight: 300;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.faqItem[open] .faqQ::before {
+  transform: rotate(45deg);
+}
+
+.faqA {
+  font-size: 0.88rem;
+  color: var(--secondary);
+  line-height: 1.7;
+  padding: 0 26px 22px 26px;
+}
+
+/* ═══════════════════════════════════════════════
+   ANIMATION CLASS (GSAP target)
+═══════════════════════════════════════════════ */
+.animCard {
+  /* Initial state — GSAP animates from opacity:0 y:40 */
+  will-change: transform, opacity;
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .layout {
     grid-template-columns: 1fr;
+    gap: 0;
   }
-  
+
   .sidebar {
     display: none;
   }
-  
-  .archRow {
-    flex-direction: column;
-    gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .twoCol {
+    grid-template-columns: 1fr;
   }
-  
+
+  .archPipeline {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .archArrow {
-    transform: rotate(90deg) !important;
+    transform: rotate(90deg);
+  }
+
+  .loopGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .configRow {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .configHeader {
+    display: none;
+  }
+
+  .timelineRow {
+    grid-template-columns: 70px 12px 1fr;
+    gap: 10px;
+  }
+
+  .stepCard {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .stepMeta {
+    flex-direction: row;
   }
 }
